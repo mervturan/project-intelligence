@@ -1,91 +1,168 @@
-# ContextFlow MVP
+# Project Intelligence
 
-ContextFlow is an AI-assisted project-memory and decision-support prototype. It converts scattered notes into structured decisions, action items, unresolved questions, searchable context, and a prioritised work brief.
+> **An AI-powered project memory and decision intelligence platform that transforms notes, meetings, and documents into actionable knowledge, tracked decisions, and prioritized next steps.**
 
-## Challenge fit
+🚀 **Live Demo:** https://project-intelligence.streamlit.app/
 
-**IBM AI Builders Challenge -  Wildcard: Intelligent Systems for the Future of Work**
+---
 
-ContextFlow demonstrates how AI can transform disconnected work notes into an outcome-driven project memory that helps users plan, decide, and execute.
+# IBM AI Builders Challenge 2026
 
-## MVP features
+**Challenge Theme:** Wildcard Challenge – Intelligent Systems for the Future of Work
 
-- Create separate project workspaces
-- Paste meeting notes or project updates
-- Extract summaries, decisions, actions, deadlines, and open questions
-- Store persistent project memory in SQLite
-- Ask questions using lightweight local retrieval
-- Generate a current project brief and recommended next step
-- Run without paid API credentials
+---
 
-The repository uses a deterministic local extraction layer so judges can run it immediately. The service boundary is intentionally modular so IBM Granite or watsonx can replace the starter implementation.
+# Problem Statement
 
-## Architecture
+Modern teams generate large amounts of information through meetings, documents, chat messages, and project notes. While this information is valuable, it quickly becomes fragmented across different sources, making it difficult to remember previous decisions, track action items, understand project history, and identify the next steps.
+
+As projects grow, teams spend increasing amounts of time searching for information instead of acting on it.
+
+Project Intelligence addresses this problem by transforming unstructured project knowledge into a searchable, structured, and continuously evolving project memory.
+
+---
+
+# Solution Description
+
+Project Intelligence is an AI-powered project memory and decision intelligence platform.
+
+Instead of simply summarizing notes, it continuously organizes project knowledge by extracting:
+
+- Decisions
+- Action items
+- Deadlines
+- Open questions
+- Project summaries
+
+The system stores this information as persistent project memory, allowing users to search previous discussions, understand why decisions were made, and generate AI-assisted project briefs with recommended next actions.
+
+---
+
+# Features
+
+- 📂 Project workspaces
+- 📝 Note and meeting capture
+- 🧠 Structured information extraction
+- 💾 Persistent project memory
+- 🔎 Project knowledge search
+- 💬 Natural language question answering
+- 📋 AI-generated work briefs
+- ⚡ Decision and action tracking
+
+---
+
+# AI Approach & Architecture
+
+Current MVP Architecture
 
 ```text
-Streamlit UI
-    ↓
-Note ingestion
-    ↓
-Structured extraction service
-    ↓
-SQLite project memory
-    ↓
-Local retrieval / future vector search
-    ↓
-Question answering + work brief
+                  User Notes
+                       │
+                       ▼
+               Streamlit Interface
+                       │
+                       ▼
+           Structured Information Extraction
+                       │
+                       ▼
+            SQLite Project Memory Database
+                       │
+                       ▼
+      Retrieval & Context Assembly Layer
+                       │
+                       ▼
+      Question Answering / Work Brief Generator
 ```
 
-## Run locally
+Current MVP uses a lightweight rule-based extraction pipeline to demonstrate the complete workflow without requiring external AI services.
+
+The architecture is intentionally modular so that IBM Granite and watsonx can replace the extraction and reasoning modules with minimal changes.
+
+---
+
+# Selected Challenge Theme
+
+**IBM AI Builders Challenge 2026**
+
+**Wildcard Challenge — Intelligent Systems for the Future of Work**
+
+Project Intelligence aligns with the challenge by demonstrating how AI can help individuals and teams:
+
+- organize project knowledge
+- improve decision-making
+- reduce repetitive work
+- maintain long-term project memory
+- transform disconnected information into actionable outcomes
+
+---
+
+# How IBM Bob Was Used
+
+IBM Bob was used throughout the software development lifecycle, including:
+
+- brainstorming the MVP scope
+- planning the application architecture
+- generating and refining code
+- debugging Python and Streamlit components
+- improving the user interface
+- reviewing and optimizing implementation
+- assisting with documentation
+
+---
+
+# Running Locally
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+
+# Windows
+.venv\Scripts\activate
+
+# macOS / Linux
+source .venv/bin/activate
+
 pip install -r requirements.txt
+
 streamlit run app.py
 ```
 
-Then open the local URL printed by Streamlit.
+---
 
-## Run tests
+# Demo Workflow
 
-```bash
-pytest
-```
+1. Create a project.
+2. Add meeting notes.
+3. View extracted decisions and actions.
+4. Ask questions about previous meetings.
+5. Generate the current project brief.
 
-## Suggested three-minute demo
+---
 
-1. Create an `MSc Dissertation` project.
-2. Add the three examples in `data/sample_notes.md` one at a time.
-3. Show the extracted decisions and actions.
-4. Ask: `What decisions have we made about datasets?`
-5. Generate the work brief.
-6. Explain that Granite/watsonx will replace the local starter extractor for richer reasoning.
+# Roadmap
 
-## IBM Bob usage log
+Future versions will include:
 
-TODO: Document your actual use of IBM Bob here before submission. Examples:
+- IBM Granite structured extraction
+- watsonx integration
+- Semantic search using FAISS/Chroma
+- PDF, DOCX and transcript ingestion
+- Decision evolution tracking
+- Task completion monitoring
+- Source citations
+- Team collaboration
+- Calendar integration
+- Slack/Teams integration
 
-- Planned the repository architecture and MVP scope
-- Generated and reviewed service modules
-- Debugged Streamlit state and SQLite behaviour
-- Added tests and improved error handling
-- Refined README and deployment instructions
+---
 
-## Next implementation steps
+# Responsible AI
 
-- Add IBM Granite/watsonx structured JSON extraction
-- Add embeddings and FAISS/Chroma semantic retrieval
-- Detect changed or superseded decisions
-- Add task completion and deadline status
-- Support PDF and transcript upload
-- Add source citations to generated answers
-- Deploy on Streamlit Community Cloud or Hugging Face Spaces
+Project Intelligence is designed as a decision-support system.
 
-## Responsible AI
+Users remain responsible for validating generated recommendations, deadlines, and action items. The platform should always provide traceability back to the original project notes and allow users to review or correct extracted information.
 
-ContextFlow is a decision-support prototype, not an autonomous decision-maker. Users should verify generated tasks, deadlines, and recommendations against the original source notes. The interface should preserve evidence links and allow corrections before information becomes part of project memory.
+---
 
-## License
+# License
 
 MIT

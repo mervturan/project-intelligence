@@ -1,4 +1,4 @@
-"""Generate a concise outcome-oriented project brief."""
+"""Generate a concise project brief from stored project intelligence."""
 from __future__ import annotations
 
 from services.database import get_project, project_snapshot
@@ -8,34 +8,37 @@ def generate_work_brief(project_id: int) -> str:
     project = get_project(project_id)
     snapshot = project_snapshot(project_id)
 
-    latest_summary = snapshot["summaries"][-1] if snapshot["summaries"] else "No updates have been added yet."
-    decisions = snapshot["decisions"][-3:]
-    actions = snapshot["actions"][-5:]
-    questions = snapshot["open_questions"][-3:]
+    lines = [f"## {project['name']} — Work Brief"]
+    if project.get("objective"):
+        lines.extend(["", f"**Objective:** {project['objective']}"])
 
-    next_step = actions[0]["task"] if actions else "Add the next project update and define one concrete action."
+    lines.extend(["", "### Current position"])
+    if snapshot["summaries"]:
+        lines.append(snapshot["summaries"][-1])
+    elif snapshot["notes"]:
+        lines.append("Project notes are available, but no summary has been extracted yet.")
+    else:
+        lines.append("No project notes have been added yet.")
 
-    lines = [
-        f"## {project['name']} — Work Brief",
-        f"**Objective:** {project['objective'] or 'Not yet defined.'}",
-        f"**Latest context:** {latest_summary}",
-        "",
-        "### Key decisions",
-        *(f"- {item}" for item in decisions),
-        "- None recorded yet." if not decisions else "",
-        "",
-        "### Open actions",
-        *(
-            f"- {item['task']}" + (f" — due {item['deadline']}" if item.get("deadline") else "")
-            for item in actions
-        ),
-        "- None recorded yet." if not actions else "",
-        "",
-        "### Unresolved questions",
-        *(f"- {item}" for item in questions),
-        "- None recorded yet." if not questions else "",
-        "",
-        "### Recommended next step",
-        f"**{next_step}**",
-    ]
-    return "\n".join(line for line in lines if line != "")
+    lines.extend(["", "### Decisions"])
+    if snapshot["decisions"]:
+        lines.extend(f"- {item}" for item in snapshot["decisions"])
+    else:
+        lines.append("- No decisions recorded yet.")
+
+    lines.extend(["", "### Next actions"])
+    if snapshot["actions"]:
+        for action in snapshot["actions"]:
+            owner = f" — Owner: {action['owner']}" if action.get("owner") else ""
+            deadline = f" — Due: {action['deadline']}" if action.get("deadline") else ""
+            lines.append(f"- {action['task']}{owner}{deadline}")
+    else:
+        lines.append("- No actions recorded yet.")
+
+    lines.extend(["", "### Open questions"])
+    if snapshot["open_questions"]:
+        lines.extend(f"- {item}" for item in snapshot["open_questions"])
+    else:
+        lines.append("- No open questions recorded.")
+
+    return "\n".join(lines)

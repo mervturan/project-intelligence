@@ -1,116 +1,66 @@
 # Project Intelligence
 
-> **An AI-powered project memory and decision intelligence platform that transforms notes, meetings, and documents into actionable knowledge, tracked decisions, and prioritized next steps.**
+> A collaborative project-memory and decision-support platform that transforms meetings and updates into structured decisions, actions, open questions, searchable context, and shared work briefs.
 
-🚀 **Live Demo:** https://project-intelligence.streamlit.app/
+**Live demo:** https://project-intelligence.streamlit.app/
 
----
+## IBM AI Builders Challenge 2026
 
-# IBM AI Builders Challenge 2026
+**Selected theme:** Wildcard Challenge — Intelligent Systems for the Future of Work
 
-**Challenge Theme:** Wildcard Challenge – Intelligent Systems for the Future of Work
+## Problem statement
 
----
+Teams generate important information across meetings, project updates, and changing plans. Decisions, ownership, deadlines, and unresolved questions become fragmented, which makes collaboration slower and causes valuable context to be lost.
 
-# Problem Statement
+## Solution description
 
-Modern teams generate large amounts of information through meetings, documents, chat messages, and project notes. While this information is valuable, it quickly becomes fragmented across different sources, making it difficult to remember previous decisions, track action items, understand project history, and identify the next steps.
+Project Intelligence creates a shared project workspace where users can capture notes, maintain project memory, collaborate with teammates, ask questions about earlier work, and generate a current project brief. Projects may be private or publicly discoverable, and public projects can receive collaboration requests.
 
-As projects grow, teams spend increasing amounts of time searching for information instead of acting on it.
+## Current features
 
-Project Intelligence addresses this problem by transforming unstructured project knowledge into a searchable, structured, and continuously evolving project memory.
+- Responsive Home, About, Contact, and project workspace pages
+- Demo sign-in and user-specific workspaces
+- Private/public projects and collaboration requests
+- Add/remove project collaborators
+- Create, rename, star, delete, and reorder projects
+- Edit project objectives
+- Add, edit, and delete meeting notes
+- Automatic recalculation of decisions, actions, questions, dashboard counts, Q&A context, and work briefs after note changes
+- Shared project dashboard and knowledge base
+- Local retrieval-based project Q&A
+- Current work-brief generation
+- Persistent SQLite storage for the prototype
 
----
-
-# Solution Description
-
-Project Intelligence is an AI-powered project memory and decision intelligence platform.
-
-Instead of simply summarizing notes, it continuously organizes project knowledge by extracting:
-
-- Decisions
-- Action items
-- Deadlines
-- Open questions
-- Project summaries
-
-The system stores this information as persistent project memory, allowing users to search previous discussions, understand why decisions were made, and generate AI-assisted project briefs with recommended next actions.
-
----
-
-# Features
-
-- 📂 Project workspaces
-- 📝 Note and meeting capture
-- 🧠 Structured information extraction
-- 💾 Persistent project memory
-- 🔎 Project knowledge search
-- 💬 Natural language question answering
-- 📋 AI-generated work briefs
-- ⚡ Decision and action tracking
-
----
-
-# AI Approach & Architecture
-
-Current MVP Architecture
+## AI approach and architecture
 
 ```text
-                  User Notes
-                       │
-                       ▼
-               Streamlit Interface
-                       │
-                       ▼
-           Structured Information Extraction
-                       │
-                       ▼
-            SQLite Project Memory Database
-                       │
-                       ▼
-      Retrieval & Context Assembly Layer
-                       │
-                       ▼
-      Question Answering / Work Brief Generator
+Collaborative project workspace
+        ↓
+Meeting-note and update ingestion
+        ↓
+Structured extraction service
+        ↓
+SQLite project memory
+        ↓
+Retrieval and context assembly
+        ↓
+Question answering and work briefs
 ```
 
-Current MVP uses a lightweight rule-based extraction pipeline to demonstrate the complete workflow without requiring external AI services.
+The current implementation includes a deterministic local extraction layer so the complete workflow can run without paid credentials. The service boundary is modular so IBM Granite or watsonx can replace the starter extraction and reasoning logic.
 
-The architecture is intentionally modular so that IBM Granite and watsonx can replace the extraction and reasoning modules with minimal changes.
+## How IBM Bob was used
 
----
+Before submission, replace or expand this section with the exact activities completed using IBM Bob, such as:
 
-# Selected Challenge Theme
+- Planning the repository architecture and MVP scope
+- Generating and reviewing service modules
+- Debugging Streamlit state and SQLite behaviour
+- Improving responsive navigation and project workflows
+- Adding tests and error handling
+- Refining documentation and deployment configuration
 
-**IBM AI Builders Challenge 2026**
-
-**Wildcard Challenge — Intelligent Systems for the Future of Work**
-
-Project Intelligence aligns with the challenge by demonstrating how AI can help individuals and teams:
-
-- organize project knowledge
-- improve decision-making
-- reduce repetitive work
-- maintain long-term project memory
-- transform disconnected information into actionable outcomes
-
----
-
-# How IBM Bob Was Used
-
-IBM Bob was used throughout the software development lifecycle, including:
-
-- brainstorming the MVP scope
-- planning the application architecture
-- generating and refining code
-- debugging Python and Streamlit components
-- improving the user interface
-- reviewing and optimizing implementation
-- assisting with documentation
-
----
-
-# Running Locally
+## Run locally
 
 ```bash
 python -m venv .venv
@@ -122,47 +72,22 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -r requirements.txt
-
 streamlit run app.py
 ```
 
----
+## Before final submission
 
-# Demo Workflow
+- Connect IBM Granite or watsonx
+- Replace demo authentication with production authentication if continuing beyond the hackathon
+- Move persistence from local SQLite to a hosted database for durable cloud collaboration
+- Add your public GitHub, LinkedIn, and contact email to the Contact page
+- Add the final public repository URL
+- Record and publish the three-minute demo video
 
-1. Create a project.
-2. Add meeting notes.
-3. View extracted decisions and actions.
-4. Ask questions about previous meetings.
-5. Generate the current project brief.
+## Responsible AI
 
----
+Project Intelligence is a decision-support system, not an autonomous decision-maker. Users should verify generated decisions, deadlines, tasks, and recommendations against the original notes. The interface preserves source notes and supports corrections through note editing and deletion.
 
-# Roadmap
-
-Future versions will include:
-
-- IBM Granite structured extraction
-- watsonx integration
-- Semantic search using FAISS/Chroma
-- PDF, DOCX and transcript ingestion
-- Decision evolution tracking
-- Task completion monitoring
-- Source citations
-- Team collaboration
-- Calendar integration
-- Slack/Teams integration
-
----
-
-# Responsible AI
-
-Project Intelligence is designed as a decision-support system.
-
-Users remain responsible for validating generated recommendations, deadlines, and action items. The platform should always provide traceability back to the original project notes and allow users to review or correct extracted information.
-
----
-
-# License
+## License
 
 MIT
